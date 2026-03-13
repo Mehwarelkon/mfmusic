@@ -1,0 +1,124 @@
+/* Container adjustments */
+#Middle {
+    padding-top: 20px;
+    gap: 15px; /* Adds space between items without hacking margins */
+}
+
+/* Music Item Styling */
+.item_div {
+    display: flex;
+    flex-direction: row; /* Usually better for list items */
+    width: 92%;
+    height: 80px; 
+    background-color: #1e1e1e; /* Darker grey instead of white */
+    border-radius: 12px; /* Softens the look */
+    border: 1px solid #333;
+    padding: 10px;
+    align-items: center;
+    transition: background 0.3s;
+}
+
+.item_div:active {
+    background-color: #2a2a2a; /* Visual feedback when clicked */
+}
+
+/* Typography */
+.item_div p {
+    color: #ffffff;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Keeps long filenames tidy */
+}
+
+/* The Player (Bottom) */
+.playprogressDiv {
+    background-color: #1a1a1a;
+    border: 1px solid #444;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.5); /* Adds depth */
+
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.progressbar {
+    background-color: #333;
+
+    position: absolute;
+    touch-action: none;
+}
+
+.progressCircle {
+    background-color: #1db954; /* Spotify-style green accent */
+    box-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+
+    position: absolute;
+    width:20px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+}
+#audio{
+    display:none;
+    visibility: hidden;
+}
+
+
+
+/*
+
+.playprogressDiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 95%;
+    height:12vh;
+    border-radius: 6vh;
+    border: 2px solid aliceblue;
+    margin-bottom: 10px;
+    position: relative;
+}
+.progressbar{
+    width: 90%;
+    height: 4px;
+    border-radius: 9px;
+    background-color: rgb(127, 127, 127);
+    position: absolute;
+    touch-action: none;
+}
+.progressCircle{
+    position: absolute;
+    width:20px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    transform: translate(-50%,-50%);
+    background-color: white;
+    left: 50%;
+}
+.upperDiv{
+    display: flex;
+    width:80%;
+    height: 40%;
+    align-self:top;
+    align-items: center;
+    justify-content: center;
+    color: aliceblue;
+}
+.upperDiv p{
+    margin:0 3vw;
+}
+.pauseButton{
+    align-self: flex-start;
+    justify-self: center;
+    max-width: 50px;
+    max-height: 50px;
+    aspect-ratio: 1/1;
+
+}
+p {
+    user-select: none;
+}
+*/

@@ -6,5 +6,10 @@
 ## bar glitch in touch mode
 #### _when you slide the progress bar any touch anywhere would put the progress bar to where it was last time you slide untill you slide now its fixed_
 
+2.1.0
+## cleaner code
+###### _no auto replay when changing time_
+## no buzzing 
+###### _if music is playing and you change its time it isnt buzzing_
 ###### note 
 i hate JS

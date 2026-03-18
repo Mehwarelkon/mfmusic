@@ -108,9 +108,7 @@ class Item{
     playFile(){
         const audio=document.getElementById("audio");
         audio.src=`${join("mfmusic",bar.ctx.currentDir,this.name)}`;
-        audio.oncanplaythrough = () => {
         audio.play().catch(e => console.error("Playback failed:", e));
-        };
         bar.ctx.index=this.index;
         bar.reset(this.name);
     }
@@ -167,7 +165,7 @@ class Bar{
         this.div.appendChild(this.upperDiv);
         this.div.appendChild(this.progressbar);
         this.progressbar.appendChild(this.progressCircle);
-        this.ctx={index:null,items:undefined,currentDir:undefined/*,paused:false*/};
+        this.ctx={index:null,items:undefined,currentDir:undefined,wasPlaying:false};
         this.reset("");
     }
     reset(name){
@@ -207,32 +205,33 @@ class Bar{
     
     update(){
         
-        if(pointer.ctx.wasDown&&!this.audio.paused){
-                let paused=this.audio.paused;
-                console.log(paused);
-                if(this.CT||this.CT===0){this.audio.currentTime=this.CT;}
-                this.audio.pause();
-                console.log(this.audio.paused);
-                pointer.ctx.wasDown=false;
-            }
         if(!this.audio.paused){
+            console.log("update");
             const progress=(this.audio.currentTime/this.audio.duration)*100;
             this.progressCircle.style.left=`${progress?progress:0}%`;
             this.time.innerText=`${Math.floor(this.audio.currentTime/60)}:${Math.floor(this.audio.currentTime%60).toString().padStart(2,'0')}`;
         }
-
         if(pointer.isdown){//
             const rec=this.div.getBoundingClientRect();
             const proRec=this.progressbar.getBoundingClientRect();
             const yCenter=(rec.top+rec.bottom)/2
             if(Math.abs(yCenter-pointer.y)<rec.height/2){
+                if(!pointer.ctx.wasDown)this.ctx.wasPlaying=!this.audio.paused;
+                console.log(`"dragging ${this.ctx.wasPlaying} ${this.audio.paused}"`)
                 pointer.ctx.wasDown=true;
+                this.audio.pause();
                 let X=Math.max(proRec.left,Math.min(proRec.right,pointer.x))-proRec.left;
                 this.CT=(X/(proRec.right-proRec.left))*this.audio.duration;
                 const progress=((pointer.x-proRec.left)/(proRec.width))*100;
                 this.progressCircle.style.left=`${progress}%`;
             }
         }
+        else if(pointer.ctx.wasDown){
+            console.log(`"set ${this.ctx.wasPlaying}"`);
+            if(this.CT||this.CT===0){this.audio.currentTime=this.CT;}
+            if(this.ctx.wasPlaying)this.audio.play();
+            pointer.ctx.wasDown=false;
+            }
         requestAnimationFrame(this.update.bind(this));
     }
     
@@ -313,4 +312,4 @@ document.getElementById("sitt").onclick=goSitt;
 bar.pauseButton.onclick=()=>bar.handlePauseAndPlay();
 const audio=document.getElementById("audio");
 audio.addEventListener("ended",()=>bar.handleFinished());
-// audio.addEventListener("play",()=>{});
+const item=new Item("04. The Grimm Troupe.mp3",true,0,document.getElementById("Middle"));

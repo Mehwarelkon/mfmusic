@@ -67,6 +67,12 @@
 }
 
 
+.item_upperdiv{
+  white-space: nowrap;      /* Keep it on one line */
+  overflow: hidden;         /* Hide the extra text */
+  text-overflow: ellipsis;  /* Add the "..." */
+  /* width: 200px;             You must define a width/max-width */
+}
 
 /*
 
